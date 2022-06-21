@@ -1,0 +1,17 @@
+{
+  "name": "wordleo",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "description": "Wordle in Esperanto",
+  "scripts": {
+    "start": "ts-node .",
+    "start:dev": "nodemon index.ts"
+  },
+  "author": "darcy",
+  "dependencies": {
+    "ts-node": "^10.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
