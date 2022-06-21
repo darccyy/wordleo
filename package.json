@@ -5,7 +5,7 @@
   "description": "Wordle in Esperanto",
   "scripts": {
     "start": "ts-node .",
-    "start:dev": "nodemon index.ts"
+    "dev": "nodemon index.ts"
   },
   "author": "darcy",
   "dependencies": {

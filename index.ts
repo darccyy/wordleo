@@ -16,7 +16,8 @@ async function main(): Promise<void> {
   Game: while (true) {
     var answer = randomItem(answers),
       grid: string[] = [],
-      firstTitle = true;
+      firstTitle = true,
+      state = "play";
 
     // Guess loop
     while (true) {
@@ -94,16 +95,28 @@ async function main(): Promise<void> {
         }
       }
 
+      if (state === "loss") {
+        await input("\x1b[36m└\x1b[31;1mPERDO\x1b[0m\x1b[36m┘\x1b[0m");
+        warning = "";
+        break;
+      } else if (state === "win") {
+        await input("\x1b[36m└\x1b[32;1mVENKO\x1b[0m\x1b[36m┘\x1b[0m");
+        warning = "";
+        break;
+      }
+
       // Win
       if (answer === grid[grid.length - 1]) {
-        await input("\x1b[36m└\x1b[32;1mVENKO\x1b[0m\x1b[36m┘\x1b[0m");
-        break;
+        state = "win";
+        warning = "\x1b[32mBona!";
+        continue;
       }
 
       // Loss
       if (grid.length >= 6) {
-        await input("\x1b[36m└\x1b[31;1mPERDO\x1b[0m\x1b[36m┘\x1b[0m");
-        break;
+        state = "loss";
+        warning = "Estis: \x1b[3m'" + answer + "'";
+        continue;
       }
 
       // Guess
@@ -117,8 +130,12 @@ async function main(): Promise<void> {
           continue Game;
         }
         // Answer '//'
-        if (guess[1]?.toLowerCase() === "/") {
-          warning = "Estas: \x1b[3m'" + answer + "'";
+        if (guess[1] === "/") {
+          warning = "\x1b[31mEstas: \x1b[3m'" + answer + "'";
+          continue;
+        }
+        if (guess[1] === "?") {
+          grid.push(randomItem(answers));
           continue;
         }
         // Unknown command
