@@ -108,7 +108,11 @@ async function main(): Promise<void> {
       // Win
       if (answer === grid[grid.length - 1]) {
         state = "win";
-        warning = "\x1b[32mBona!";
+        warning =
+          "\x1b[32m" +
+            ["GENIULO!", "Lerta!", "Bonega!", "Bona", "Boneta", "Ne malbona..."][
+              grid.length - 1
+            ] || "Kio?";
         continue;
       }
 
@@ -131,11 +135,12 @@ async function main(): Promise<void> {
         }
         // Answer '//'
         if (guess[1] === "/") {
-          warning = "\x1b[31mEstas: \x1b[3m'" + answer + "'";
+          warning = "\x1b[31mEstas: \x1b[3m'" + answer + "'\x1b[0m";
           continue;
         }
         if (guess[1] === "?") {
           grid.push(randomItem(answers));
+          warning = "Hazarda";
           continue;
         }
         // Unknown command
